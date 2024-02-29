@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bhawan Sheva recipe</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+</head>
+<style media="screen">
+    /* #htmlContent{
+      background: lightblue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 500px;
+      height: 300px;
+
+    } */
+
+    /* recipt code */
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    h2,
+    h3 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        left: 40%;
+    }
+
+    /* recipe css */
+
+    .receipt {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        margin-left: 30%;
+    }
+
+    h2 h3 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .info {
+        margin-bottom: 20px;
+    }
+
+    .info p {
+        margin: 5px 0;
+    }
+
+    .thanks {
+        font-style: italic;
+        color: #555;
+        text-align: Right;
+        padding-top: 10Px;
+    }
+
+    /* recipt table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    /* date button  */
+    input[type="date"]::-webkit-clear-button {
+        display: none;
+    }
+
+    /* Removes the spin button */
+    input[type="date"]::-webkit-inner-spin-button {
+        display: none;
+    }
+
+    /* Always display the drop down caret */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        color: #2c3e50;
+    }
+
+    /* A few custom styles for date inputs */
+    input[type="date"] {
+        appearance: none;
+        -webkit-appearance: none;
+        color: #95a5a6;
+        font-family: "Helvetica", arial, sans-serif;
+        font-size: 18px;
+        border: 1px solid #ecf0f1;
+        background: #ecf0f1;
+        padding: 5px;
+        display: inline-block !important;
+        visibility: visible !important;
+    }
+
+    input[type="date"],
+    focus {
+        color: #95a5a6;
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+    }
+</style>
+
+
+
+<body>
+    <div class="container" id="hide1">
+        <h2>Sant Nirankari Mandal,Vazare</h2>
+        <h3>Donation Receipt Generator</h3>
+        <form id="receiptForm">
+            <label for="donorName">Donor Name:</label>
+            <input type="text" id="donorName" name="donorName" required>
+            <label for="donationAmount">Donation Amount ($):</label>
+            <input type="text" id="donationAmount" name="donationAmount" required>
+            <label for="paymentMode">Payment Mode :</label>
+            <select name="paymentMode" id="paymentMode">
+                <option value="Google Pay">Google Pay</option>
+                <option value="Phone Pay">Phone Pay</option>
+                <option value="PayTM">PayTM</option>
+                <option value="Cash">Cash</option>
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            <button type="button">Generate Receipt</button>
+        </form>
+
+    </div>
+
+    <div id="htmlContent"></div>
+    <a id="download"></a>
+
+
+    <script type="text/javascript">
+        $("button").click(function() {
+            var donorName = document.getElementById('donorName').value;
+            var donationAmount = document.getElementById('donationAmount').value;
+            var date = document.getElementById('date').value;
+            var paymentMode = document.getElementById('paymentMode').value;
+
+            var receiptContent = `
+<div id = "rec" class="receipt">
+      <h2>Sant Nirankari Mandal, Vazare</h2>
+      <h3>Monthly Bhawan Seva</h3>
+      <div class="info">
+    <table>
+      <tr>
+        <td>Name</td>
+        <td>${donorName}</td>
+      </tr>
+      <tr>
+        <td>Amount</td>
+        <td>${donationAmount} ₹ </td>
+      </tr>
+      <tr>
+        <td>Date</td>
+        <td>${date}</td>
+      </tr>
+      <tr>
+        <td>Payment Method</td>
+        <td>${paymentMode}</td>
+      </tr>
+    </table>
+    <p class="thanks">Thanks,<br>Omkar Rode</p>
+</div>
+  `;
+
+
+            document.getElementById("htmlContent").innerHTML += receiptContent;
+
+            var hidediv = document.getElementById('hide1');
+            hidediv.style.display = 'none';
+
+            // div convert image
+            html2canvas([document.getElementById('rec')], {
+                onrendered: function(canvas) {
+                    var imageData = canvas.toDataURL("image/jpg");
+                    var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+
+
+                    var downloadLink = $("#download");
+
+                    // Set the "download" attribute to "image.jpg"
+                    downloadLink.attr("download", `${donorName}${date}.jpg`);
+
+                    // Set the "href" attribute to the URL stored in the "newData" variable
+                    downloadLink.attr("href", newData);
+
+                    // Programmatically click the anchor element to trigger the download
+                    downloadLink[0].click();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
